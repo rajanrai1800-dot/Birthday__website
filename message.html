@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Heart for You 💖</title>
+<style>
+/* 🌌 MATCHING BEAUTIFUL BACKGROUND */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+  position: fixed;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Deep romantic theme from your screenshot */
+  background: linear-gradient(135deg, #1a0a1a 0%, #4a1440 50%, #1a0a1a 100%);
+  color: white;
+}
+
+/* ✨ FLOATING HEARTS EFFECT */
+.blurHeart { 
+  position: absolute; 
+  font-size: 30px; 
+  color: rgba(255, 100, 150, 0.2); 
+  filter: blur(4px); 
+  animation: floatSlow 10s linear infinite; 
+  pointer-events: none; 
+}
+
+@keyframes floatSlow { 
+  from { transform: translateY(110vh); } 
+  to { transform: translateY(-20vh); } 
+}
+
+.container {
+  text-align: center;
+  z-index: 10;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* 💌 TYPING MESSAGE BOX */
+#message-box {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.5;
+  min-height: 150px;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  margin-bottom: 30px;
+}
+
+/* 📸 MEMORY SLIDER FADE-IN */
+#memory-section {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+
+.slider { 
+  display: flex; 
+  overflow-x: auto; 
+  gap: 15px; 
+  padding: 10px;
+  scrollbar-width: none; 
+}
+
+.slider img { 
+  width: 180px; 
+  height: 250px; 
+  object-fit: cover; 
+  border-radius: 20px; 
+  border: 2px solid rgba(255, 255, 255, 0.5); 
+  flex-shrink: 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* 🏠 BACK TO HOME BUTTON */
+.back-home {
+  position: fixed !important;   
+  bottom: 15px !important;      
+  left: 50% !important; 
+  transform: translateX(-50%) !important; 
+  padding: 10px 25px;
+  z-index: 2147483647; 
+  border-radius: 50px;
+  background: rgba(255, 75, 92, 0.9); 
+  backdrop-filter: blur(10px); 
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div style="font-size: 60px; margin-bottom: 20px;">💍</div>
+  
+  <div id="message-box"></div>
+
+  <div id="memory-section">
+    <p style="color: #ff9a9e; font-weight: bold;">Our Beautiful Memories 📸</p>
+    <div class="slider">
+      <img src="22.jpg">
+      <img src="23.jpg">
+      <img src="24.jpg">
+    </div>
+
+<button class="back-home" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+  </div>
+</div>
+
+<script>
+const messages = [
+  "You are the most beautiful part of my life... 💖",
+  "Every second with you feels like a blessing. ✨",
+  "I promise to always keep you happy... 🌹",
+  "I love you forever and always! 😍"
+];
+
+let msgIdx = 0;
+const box = document.getElementById("message-box");
+
+function typeMessage() {
+  if (msgIdx < messages.length) {
+    let charIdx = 0;
+    box.innerHTML = "";
+    let typing = setInterval(() => {
+      box.innerHTML += messages[msgIdx][charIdx];
+      charIdx++;
+      if (charIdx >= messages[msgIdx].length) {
+        clearInterval(typing);
+        msgIdx++;
+        setTimeout(typeMessage, 2500); // Wait before next message
+      }
+    }, 80);
+  } else {
+    // Show memories after all messages are done
+    document.getElementById("memory-section").style.opacity = "1";
+  }
+}
+
+// Start typing on load
+window.onload = typeMessage;
+
+// Heart background generator
+setInterval(() => {
+  let h = document.createElement("div"); 
+  h.className = "blurHeart"; 
+  h.innerHTML = "❤";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = (Math.random() * 20 + 20) + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 10000);
+}, 600);
+</script>
+
+</body>
+</html>

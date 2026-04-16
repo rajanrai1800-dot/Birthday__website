@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ultimate Love 💖</title>
+
+<style>
+/* 🌌 TOTAL LOCK SYSTEM - PRESERVED */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+  position: fixed;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 20% 30%, #ff9a9e, transparent 40%),
+              radial-gradient(circle at 80% 70%, #fad0c4, transparent 40%),
+              radial-gradient(circle at 50% 50%, #ff758c, transparent 50%),
+              #0f0f1a;
+  background-size: cover;
+}
+
+.blurHeart { 
+  position: absolute; 
+  font-size: 40px; 
+  color: rgba(255,255,255,0.15); 
+  filter: blur(5px); 
+  animation: floatSlow 12s linear infinite; 
+  pointer-events: none; 
+  z-index: 1; 
+}
+
+@keyframes floatSlow { 
+  from { transform: translateY(110vh); } 
+  to { transform: translateY(-20vh); } 
+}
+
+.page-section { 
+  display: none; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; /* FIXED: Centered all pages including Gift Page */
+  text-align: center; 
+  color: white; 
+  width: 100%;
+  position: relative; 
+  height: 100vh;
+  z-index: 10;
+}
+
+/* 🎥 FIXED: VIDEO AT TOP CENTER */
+#videoContainer {
+  display: none; 
+  flex-direction: column;
+  align-items: center;
+  width: 75%; 
+  max-width: 260px; 
+  position: relative; 
+  margin-bottom: 20px; 
+}
+
+video {
+  width: 100%;
+  aspect-ratio: 9/16; 
+  border-radius: 15px;
+  border: 2px solid white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+  object-fit: cover;
+}
+
+/* 🎁 GIFT CONTAINER - CENTERED */
+#giftContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px; 
+}
+
+.nav-container {
+  position: fixed !important;   
+  bottom: 15px !important;      
+  left: 50% !important; 
+  transform: translateX(-50%) !important; 
+  display: none; 
+  gap: 10px;
+  z-index: 2000; 
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgba(255, 75, 92, 0.9);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+  font-size: 14px;
+}
+
+#customAlert {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 100000;
+  text-align: center;
+  color: white;
+  width: 280px;
+}
+
+.slider { display: flex; overflow-x: auto; width: 320px; gap: 15px; margin-top: 20px; scrollbar-width: none; }
+.slider img { width: 160px; height: 220px; object-fit: cover; border-radius: 15px; border: 2px solid white; flex-shrink: 0; }
+
+.btn { width: 250px; padding: 14px; border-radius: 12px; border: none; font-size: 1rem; margin: 10px 0; cursor: pointer; font-weight: bold; }
+.btn-red { background: #ff4b5c; color: white; }
+.btn-white { background: white; color: #333; }
+
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+</style>
+</head>
+
+<body>
+
+<audio id="mySong" loop><source src="music42.mp3" type="audio/mpeg"></audio>
+
+<div id="customAlert">
+  <p id="alertMsg" style="font-weight: bold; margin-bottom: 20px;"></p>
+  <button onclick="closeMyAlert()" class="btn-red" style="width: 100px; padding: 10px;">OK</button>
+</div>
+
+<div id="lockPage" class="page-section" style="display: flex;">
+  <h2>🔐 Enter Password sweetheart</h2>
+  <input id="pass" type="password" placeholder="Enter password" style="width: 250px; padding: 14px; border-radius: 12px; border: none; margin-bottom: 10px; text-align: center;">
+  <button class="btn btn-red" onclick="checkPass()">Enter</button>
+  <button class="nav-btn" style="margin-top: 20px;" onclick="window.location.href='index.html'">← Back to Home</button>
+</div>
+
+<div id="quizPage" class="page-section">
+  <h1>💖 Do you love me?</h1>
+  <button onclick="quizNext(false)" class="btn btn-red">Yes 😍</button>
+  <button onclick="quizNext(true)" class="btn btn-red">Of course 💕</button>
+</div>
+
+<div id="choicePage" class="page-section">
+    <h1>Are you absolutely sure? 🥰</h1>
+    <button onclick="showVideoNow()" class="btn btn-red">Yes, show me! 🎥</button>
+    <button id="choiceNo" class="btn btn-white" onmouseover="moveChoiceNo()" onclick="moveChoiceNo()">No 🙈</button>
+</div>
+
+<div id="giftPage" class="page-section">
+  <div id="videoContainer">
+    <video id="loveVideo" controls preload="auto">
+      <source src="video010.mp4" type="video/mp4">
+    </video>
+  </div>
+  <p style="margin: 10px 0; font-weight: bold; font-size: 1.1rem;">A special message for you... ✨</p>
+  <div id="giftContainer">
+    <div style="font-size: 80px; cursor: pointer; animation: bounce 2s infinite;" onclick="openGift()">🎁</div>
+    <p>Click to open your final gift!</p>
+  </div>
+</div>
+
+<div id="proposalPage" class="page-section">
+  <h1 id="nameText">Will You Be Mine, My Love?</h1>
+  <div style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+    <button id="yesBtn" class="btn btn-red" onclick="goFinal()">Yes 💖</button>
+    <button id="noBtn" class="btn btn-white" onmouseover="moveNo()" onclick="moveNo()">No 😢</button>
+  </div>
+</div>
+
+<div id="finalPage" class="page-section">
+  <div style="font-size: 60px;">💍</div> 
+  <div id="typing" style="font-size: 22px; margin: 15px 0; min-height: 30px;"></div>
+  <h3>📸 Our Memories</h3>
+  <div class="slider">
+    <img src="9.jpg"><img src="2.jpg"><img src="8.jpg"><img src="26.jpg">
+  </div>
+</div>
+
+<div id="navButtons" class="nav-container">
+  <button class="nav-btn" onclick="goStepBack()"> &lt; </button>
+  <button class="nav-btn" onclick="window.location.href='index.html'">Main Home</button>
+</div>
+
+<script>
+let yesSize = 1;
+let msgIndex = 0;
+let isOfCoursePath = false; 
+const sadMessages = ["Are you sure? 💔", "Please think again... 🥺", "My heart is breaking! 😭", "Don't do this... 🥀"];
+
+function checkPass(){
+  if(document.getElementById("pass").value === "love123"){
+    document.getElementById("mySong").play().catch(() => {});
+    document.getElementById("lockPage").style.display = "none";
+    document.getElementById("quizPage").style.display = "flex";
+    document.getElementById("navButtons").style.display = "flex";
+  } else { 
+    document.getElementById("alertMsg").innerHTML = "Wrong Password! ❌";
+    document.getElementById("customAlert").style.display = "block";
+  }
+}
+
+function quizNext(isOfCourse){
+  document.getElementById("quizPage").style.display = "none";
+  isOfCoursePath = isOfCourse;
+  if(isOfCourse) document.getElementById("choicePage").style.display = "flex";
+  else document.getElementById("giftPage").style.display = "flex";
+}
+
+function moveChoiceNo(){
+    document.getElementById("alertMsg").innerHTML = "You can't say no here! 😘";
+    document.getElementById("customAlert").style.display = "block";
+    const btn = document.getElementById("choiceNo");
+    btn.style.position = "fixed";
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function showVideoNow(){
+    document.getElementById("choicePage").style.display = "none";
+    document.getElementById("giftPage").style.display = "flex";
+    document.getElementById("mySong").pause();
+    document.getElementById("videoContainer").style.display = "flex";
+    document.getElementById("giftContainer").style.display = "flex"; 
+    document.getElementById("loveVideo").play().catch(e => {});
+}
+
+function openGift(){
+  document.getElementById("loveVideo").pause();
+  document.getElementById("mySong").play().catch(() => {});
+  if(isOfCoursePath) window.location.href = 'message.html'; 
+  else {
+      document.getElementById("giftPage").style.display = "none";
+      document.getElementById("proposalPage").style.display = "flex";
+  }
+}
+
+/* RESTART YES/NO GAME ON BACK BUTTON */
+function goStepBack() {
+  const videoCont = document.getElementById("videoContainer");
+  
+  // If video is playing, just hide it and go back to quiz
+  if (videoCont.style.display === "flex") {
+    document.getElementById("loveVideo").pause();
+    videoCont.style.display = "none";
+  }
+
+  // Hide all final/gift sections and show the quiz again
+  document.getElementById("finalPage").style.display = "none";
+  document.getElementById("proposalPage").style.display = "none";
+  document.getElementById("giftPage").style.display = "none";
+  document.getElementById("choicePage").style.display = "none";
+  
+  // Reset the Yes/No game
+  yesSize = 1;
+  document.getElementById("yesBtn").style.transform = `scale(1)`;
+  document.getElementById("quizPage").style.display = "flex";
+  document.getElementById("mySong").play();
+}
+
+function moveNo(){
+  document.getElementById("alertMsg").innerHTML = sadMessages[msgIndex];
+  document.getElementById("customAlert").style.display = "block";
+  msgIndex = (msgIndex + 1) % sadMessages.length;
+  yesSize += 0.35;
+  document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+  const btn = document.getElementById("noBtn");
+  btn.style.position = "fixed";
+  btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function closeMyAlert() { document.getElementById("customAlert").style.display = "none"; }
+
+function goFinal(){
+  document.getElementById("proposalPage").style.display = "none";
+  document.getElementById("finalPage").style.display = "flex";
+  let text = "I love you forever 💖✨";
+  let i = 0, t = document.getElementById("typing");
+  t.innerHTML = "";
+  let inter = setInterval(() => {
+    t.innerHTML += text[i]; i++;
+    if(i >= text.length) clearInterval(inter);
+  }, 100);
+}
+
+setInterval(() => {
+  let h = document.createElement("div"); 
+  h.className = "blurHeart"; 
+  h.innerHTML = "❤";
+  h.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(()=> h.remove(), 12000);
+}, 800);
+</script>
+
+</body>
+</html>

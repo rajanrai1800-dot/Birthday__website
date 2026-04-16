@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      text-align: center;
+      color: white;
+      max-width: 350px;
+      z-index: 20;
+    }
+
+    h1 { font-family: 'Pacifico', cursive; font-size: 2.5rem; margin-bottom: 10px; }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #ff4b5c;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover { transform: scale(1.05); }
+
+    .gift-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      z-index: 100;
+    }
+
+    .song-list { text-align: center; z-index: 110; }
+    .song-list button { display: block; margin: 15px auto; width: 220px; }
+
+    .bg-photo {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 50; 
+      opacity: 0.5;
+    }
+
+    .card-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto;
+      border: 3px solid white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="mainCard">
+    <h1>🎂 Birthday Gift</h1>
+    <input type="text" id="nameInput" placeholder="Enter Name" style="padding: 10px; border-radius: 10px; border: none; margin-bottom: 15px; width: 80%; text-align: center;" />
+    
+    <div style="font-size: 0.8rem; margin-bottom: 15px;">
+      <label>Background Image:</label><br>
+      <input type="file" id="photoInput" accept="image/*" /><br><br>
+      <label>Card Photo:</label><br>
+      <input type="file" id="secondPhotoInput" accept="image/*" />
+    </div>
+
+    <button onclick="openGift()">Open Your Gift 🎁</button>
+  </div>
+
+  <div class="gift-page" id="giftPage">
+    <img id="bgPhoto" class="bg-photo" />
+
+    <div class="song-list" id="songList">
+      <h2>Select a Song 🎶</h2>
+      <button onclick="playSong('song1')">Nepali song 🎵</button>
+      <button onclick="playSong('song2')">Hindi song 💖</button>
+      <button onclick="playSong('song3')">Our fav song 🎉</button>
+      <button onclick="showFinalCard()" style="background: #ff4b5c; color: white;">Click here Sweety ✨</button>
+    </div>
+
+    <div class="card" id="SecondCard" style="display:none; z-index: 120;">
+      <h1>🎂 Happy Birthday!</h1>
+      <img id="userSecondPhoto" class="card-photo" />
+      <h2 id="userName"></h2>
+      <p>Lots of love to you! 🎉</p>
+      <button onclick="window.location.href='img.html'">See My Gallery 💖</button>
+    </div>
+  </div>
+
+  <audio id="music"></audio> 
+
+  <script>
+    function openGift() {
+      let name = document.getElementById('nameInput').value;
+      let file1 = document.getElementById('photoInput').files[0];
+      let file2 = document.getElementById('secondPhotoInput').files[0];
+
+      document.getElementById('userName').innerText = name || "Sweetheart";
+
+      if (file1) {
+        let reader1 = new FileReader();
+        reader1.onload = (e) => document.getElementById('bgPhoto').src = e.target.result;
+        reader1.readAsDataURL(file1);
+      }
+
+      if (file2) {
+        let reader2 = new FileReader();
+        reader2.onload = (e) => document.getElementById('userSecondPhoto').src = e.target.result;
+        reader2.readAsDataURL(file2);
+      }
+
+      document.getElementById('mainCard').style.display = 'none';
+      document.getElementById('giftPage').style.display = 'flex';
+    }
+
+    function playSong(type) {
+      let music = document.getElementById('music');
+      if (type === 'song1') music.src = 'music40.m4a';
+      else if (type === 'song2') music.src = 'music41.mp3';
+      else music.src = 'music.mp3';
+      music.play().catch(() => alert("Click again to play music!"));
+    }
+
+    function showFinalCard() {
+      document.getElementById('songList').style.display = 'none';
+      document.getElementById('SecondCard').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
